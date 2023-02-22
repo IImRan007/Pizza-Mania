@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -12,7 +13,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 function ImageSLider() {
   return (
     <div style={{ padding: "1rem" }}>
-      <p className="exploreHeading">Recommended</p>
+      <p className="exploreHeading text-[2rem] mb-4">Recommended</p>
 
       <Swiper
         slidesPerView={1}
@@ -20,16 +21,17 @@ function ImageSLider() {
         autoplay={true}
       >
         <SwiperSlide key={1}>
-          <div
-            style={{
-              background: `url("https://i.ibb.co/bJ6tKqh/stretched-1920-1080-888979.jpg") center no-repeat`,
-              backgroundSize: "cover",
-            }}
-            className="swiperSlideDiv"
-          >
-            <p className="swiperSlideText">NAME</p>
-            <p className="swiperSlidePrice">$2.5</p>
-          </div>
+          <Link to={`/pizza/${1}`}>
+            <div
+              style={{
+                background: `url("https://lh6.googleusercontent.com/8RJeWIyQUR_lMZd7oMkyJVirEcO4c1SB60wmZe_YO06DysbXdUZOnEKuo1MgXFmxMdw=w1200-h630-p") center no-repeat`,
+              }}
+              className="swiperSlideDiv"
+            >
+              <p className="swiperSlideText">NAME</p>
+              <p className="swiperSlidePrice">$2.5</p>
+            </div>
+          </Link>
         </SwiperSlide>
         <SwiperSlide key={2}>
           <div

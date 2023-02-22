@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
   return (
@@ -8,7 +9,7 @@ const Navbar = () => {
           Pizza Mania
         </Link>
       </div>
-      <div className="flex-none gap-2">
+      <div className="flex-none gap-4">
         <div className="form-control">
           <input
             type="text"
@@ -16,6 +17,15 @@ const Navbar = () => {
             className="input input-bordered text-black"
           />
         </div>
+        <Link to="/cart">
+          <button className="btn hover:bg-white hover:text-black bg-white text-black">
+            <FaShoppingCart
+              fill="#000000"
+              className="cursor-pointer h-[27px] w-[27px]"
+            />
+            &nbsp; My Cart
+          </button>
+        </Link>
         <div className="dropdown dropdown-end text-black">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
@@ -30,13 +40,10 @@ const Navbar = () => {
             className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link className="justify-between">
+              <Link className="justify-between" to="/profile">
                 Profile
                 <span className="badge">New</span>
               </Link>
-            </li>
-            <li>
-              <Link>Settings</Link>
             </li>
             <li>
               <Link>Logout</Link>
