@@ -1,6 +1,17 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Product = () => {
+  const [price, setPrice] = useState(200);
+
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      setPrice(price + 50);
+    } else {
+      setPrice(price - 50);
+    }
+  };
+
   return (
     <div className="p-4 lg:flex md:justify-center lg:p-8 lg:justify-evenly mb-[14rem]">
       <div>
@@ -11,7 +22,7 @@ const Product = () => {
           <img
             src="https://i.ibb.co/dgS5LKm/596343.jpg"
             alt="product"
-            className="sm:max-w-[80%] md:max-w-[75%] lg:max-w-[84%] rounded-[18px] shadow-2xl"
+            className="sm:max-w-[80%] md:max-w-[75%] lg:max-w-[84%] rounded-[18px] shadow-xl"
           />
         </div>
       </div>
@@ -31,14 +42,25 @@ const Product = () => {
             <option>Large</option>
           </select>
         </div>
+        <h2 className="font-bold text-[18px] mt-4">Price: ₹{price}</h2>
         <div className="mt-6 flex items-center">
-          <input id="extra-cheese" type="checkbox" className="checkbox" />
+          <input
+            id="extra-cheese"
+            type="checkbox"
+            className="checkbox"
+            onChange={handleChange}
+          />
           <label htmlFor="extra-cheese" className="mx-4 cursor-pointer">
             Add Extra Cheese for ₹50
           </label>
         </div>
         <div className="mt-6 flex items-center">
-          <input id="extra-toppings" type="checkbox" className="checkbox" />
+          <input
+            id="extra-toppings"
+            type="checkbox"
+            className="checkbox"
+            onChange={handleChange}
+          />
           <label htmlFor="extra-toppings" className="mx-4 cursor-pointer">
             Add Extra Toppings for ₹50
           </label>

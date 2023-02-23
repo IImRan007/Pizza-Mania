@@ -4,6 +4,8 @@ import Footer from "./components/Footer";
 import Product from "./pages/Product";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -17,6 +19,7 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
           </Routes>
           <Footer />
+          <ToastContainer />
         </div>
       </Router>
     </>
