@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
-function ImageSLider() {
+function ImageSlider() {
   return (
     <div style={{ padding: "1rem" }}>
       <p className="exploreHeading text-[2rem] mb-4">Recommended</p>
@@ -62,4 +62,4 @@ function ImageSLider() {
   );
 }
 
-export default ImageSLider;
+export default ImageSlider;
