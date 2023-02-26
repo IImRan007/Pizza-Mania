@@ -19,9 +19,9 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
           </Routes>
           <Footer />
-          <ToastContainer />
         </div>
       </Router>
+      <ToastContainer />
     </>
   );
 };

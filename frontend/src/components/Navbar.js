@@ -3,7 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-black text-white">
+    <div className="navbarContainer max-h[10rem] bg-black text-white sm:flex-row">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           Pizza Mania
@@ -17,15 +17,18 @@ const Navbar = () => {
             className="input input-bordered text-black"
           />
         </div>
-        <Link to="/cart">
-          <button className="btn hover:bg-white hover:text-black bg-white text-black">
-            <FaShoppingCart
-              fill="#000000"
-              className="cursor-pointer h-[27px] w-[27px]"
-            />
-            &nbsp; My Cart
-          </button>
-        </Link>
+        <div className="hidden sm:flex">
+          <Link to="/cart">
+            <button className="btn hover:bg-white hover:text-black bg-white text-black">
+              <FaShoppingCart
+                fill="#000000"
+                className="cursor-pointer h-[27px] w-[27px]"
+              />
+              &nbsp; My Cart
+            </button>
+          </Link>
+        </div>
+
         <div className="dropdown dropdown-end text-black">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">

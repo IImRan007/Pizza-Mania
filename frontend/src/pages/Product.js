@@ -1,19 +1,40 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Product = () => {
-  const [price, setPrice] = useState(200);
+const Product = ({ price = 200 }) => {
+  const [isCheeseEnabled, setIsCheeseEnabled] = useState(false);
+  const [isToppingsEnabled, setIsToppingsEnabled] = useState(false);
+  const [size, setSize] = useState("");
 
-  const handleChange = (e) => {
-    if (e.target.checked) {
-      setPrice(price + 50);
-    } else {
-      setPrice(price - 50);
-    }
+  let finalPrice = price;
+
+  const handleCheeseChange = (e) => {
+    setIsCheeseEnabled(e.target.checked);
   };
 
+  const handleToppingsChange = (e) => {
+    setIsToppingsEnabled(e.target.checked);
+  };
+
+  const handleSize = (e) => {
+    setSize(e.target.value);
+  };
+
+  if (size === "Medium") {
+    finalPrice = finalPrice + 100;
+  } else if (size === "Large") {
+    finalPrice = finalPrice + 200;
+  }
+
+  if (isCheeseEnabled) {
+    finalPrice = finalPrice + 50;
+  }
+  if (isToppingsEnabled) {
+    finalPrice = finalPrice + 50;
+  }
+
   return (
-    <div className="p-4 lg:flex md:justify-center lg:p-8 lg:justify-evenly mb-[14rem]">
+    <div className="p-4 items-center lg:flex md:justify-center lg:p-8 lg:justify-evenly mb-[14rem]">
       <div>
         <div>
           <h1 className="font-bold text-[23px]">Product name</h1>
@@ -34,21 +55,22 @@ const Product = () => {
         <div className="mt-4">
           <p className="font-bold text-[18px]">Select Size:</p>
           <select
+            onChange={handleSize}
             defaultValue
             className="select select-primary w-full max-w-xs mt-4"
           >
-            <option>Small</option>
+            <option>Regular</option>
             <option>Medium</option>
             <option>Large</option>
           </select>
         </div>
-        <h2 className="font-bold text-[18px] mt-4">Price: ₹{price}</h2>
+        <h2 className="font-bold text-[18px] mt-4">Price: ₹{finalPrice}</h2>
         <div className="mt-6 flex items-center">
           <input
             id="extra-cheese"
             type="checkbox"
             className="checkbox"
-            onChange={handleChange}
+            onChange={handleCheeseChange}
           />
           <label htmlFor="extra-cheese" className="mx-4 cursor-pointer">
             Add Extra Cheese for ₹50
@@ -59,7 +81,7 @@ const Product = () => {
             id="extra-toppings"
             type="checkbox"
             className="checkbox"
-            onChange={handleChange}
+            onChange={handleToppingsChange}
           />
           <label htmlFor="extra-toppings" className="mx-4 cursor-pointer">
             Add Extra Toppings for ₹50
