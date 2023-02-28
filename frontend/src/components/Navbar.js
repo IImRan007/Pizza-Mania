@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { UserContext } from "../context/user/UserContext";
+import { logout } from "../context/user/UserActions";
 
 const Navbar = () => {
+  const { dispatch, ...state } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    dispatch({ type: "LOGOUT_USER" });
+    navigate("/");
+  };
+
   return (
     <div className="navbarContainer max-h[10rem] bg-black text-white sm:flex-row">
       <div className="flex-1">
@@ -42,15 +55,25 @@ const Navbar = () => {
             tabIndex={0}
             className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
-            <li>
-              <Link className="justify-between" to="/profile">
-                Profile
-                <span className="badge">New</span>
-              </Link>
-            </li>
-            <li>
-              <Link>Logout</Link>
-            </li>
+            {state.user && (
+              <>
+                <li>
+                  <Link className="justify-between" to="/profile">
+                    Profile
+                  </Link>
+                </li>
+                <li onClick={handleLogout}>
+                  <Link>Logout {state.user && state.user.email}</Link>
+                </li>
+              </>
+            )}
+            {!state.user && (
+              <li>
+                <Link className="justify-between" to="/login">
+                  Login
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
