@@ -32,6 +32,7 @@ const Login = () => {
       dispatch({ type: "LOGIN_USER", payload: response });
 
       navigate("/");
+      toast.success("Logged in Successfully");
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -48,7 +49,7 @@ const Login = () => {
           <input
             type="email"
             placeholder="Enter email address"
-            className="input input-bordered w-full max-w-xs sm:max-w-[30rem]"
+            className="input input-bordered w-full max-w-xs sm:max-w-[30rem] input-primary"
             id="email"
             name="email"
             onChange={handleChange}
@@ -62,7 +63,7 @@ const Login = () => {
           <input
             type="password"
             placeholder="Enter your password"
-            className="input input-bordered w-full max-w-xs sm:max-w-[30rem]"
+            className="input input-bordered w-full max-w-xs sm:max-w-[30rem] input-primary"
             id="password"
             name="password"
             onChange={handleChange}

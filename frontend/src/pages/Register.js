@@ -54,7 +54,7 @@ const Register = () => {
           <input
             type="name"
             placeholder="Enter your name"
-            className="input input-bordered w-full max-w-xs sm:max-w-[30rem]"
+            className="input input-bordered w-full max-w-xs sm:max-w-[30rem] input-primary"
             id="name"
             name="name"
             onChange={handleChange}
@@ -68,7 +68,7 @@ const Register = () => {
           <input
             type="email"
             placeholder="Enter email address"
-            className="input input-bordered w-full max-w-xs sm:max-w-[30rem]"
+            className="input input-bordered w-full max-w-xs sm:max-w-[30rem] input-primary"
             id="email"
             name="email"
             onChange={handleChange}
@@ -82,7 +82,7 @@ const Register = () => {
           <input
             type="password"
             placeholder="Enter your password"
-            className="input input-bordered w-full max-w-xs sm:max-w-[30rem]"
+            className="input input-bordered w-full max-w-xs sm:max-w-[30rem] input-primary"
             id="password"
             name="password"
             onChange={handleChange}
@@ -96,7 +96,7 @@ const Register = () => {
           <input
             type="password"
             placeholder="Confirm your password"
-            className="input input-bordered w-full max-w-xs sm:max-w-[30rem]"
+            className="input input-bordered w-full max-w-xs sm:max-w-[30rem] input-primary"
             id="password2"
             name="password2"
             onChange={handleChange}

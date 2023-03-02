@@ -10,6 +10,10 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+// Products Page
+import AddProduct from "./pages/Products/AddProduct";
+import EditProduct from "./pages/Products/EditProduct";
+
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,6 +44,22 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/add-product"
+              element={
+                <PrivateRoute>
+                  <AddProduct />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit-product/:productId"
+              element={
+                <PrivateRoute>
+                  <EditProduct />
                 </PrivateRoute>
               }
             />
