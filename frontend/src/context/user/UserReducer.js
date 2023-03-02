@@ -25,7 +25,7 @@ const UserReducer = (state, action) => {
         error: false,
         success: true,
         loading: false,
-        message: "Logeed in Successfully",
+        message: "Logged in Successfully",
       };
     case "LOGOUT_USER":
       return {

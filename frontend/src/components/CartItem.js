@@ -24,7 +24,7 @@ const CartItem = () => {
 
   const handleSubmit = () => {};
   return (
-    <div className="card lg:card-side bg-base-100 shadow-xl mt-[1.5rem] lg:items-center bg-[#a9a9a980]">
+    <div className="card lg:card-side bg-[#a2d2ff] shadow-xl mt-[1.5rem] lg:items-center">
       <figure>
         <img
           src="https://i.ibb.co/dgS5LKm/596343.jpg"

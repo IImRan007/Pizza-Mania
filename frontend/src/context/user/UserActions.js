@@ -13,6 +13,7 @@ export const register = async (userData) => {
     return response.data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
@@ -27,6 +28,7 @@ export const login = async (userData) => {
     return response.data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 

@@ -3,9 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { UserContext } from "../context/user/UserContext";
 import { logout } from "../context/user/UserActions";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const { dispatch, ...state } = useContext(UserContext);
+  const { dispatch, state } = useContext(UserContext);
+
+  console.log({ state });
 
   const navigate = useNavigate();
 
@@ -13,6 +16,7 @@ const Navbar = () => {
     logout();
     dispatch({ type: "LOGOUT_USER" });
     navigate("/");
+    toast.success("Logged out Successfully");
   };
 
   return (
@@ -58,21 +62,39 @@ const Navbar = () => {
             {state.user && (
               <>
                 <li>
-                  <Link className="justify-between" to="/profile">
-                    Profile
+                  <Link className="justify-between" to="/cart">
+                    Cart
                   </Link>
                 </li>
+                {state.user.isAdmin && (
+                  <>
+                    <hr />
+                    <li>
+                      <Link className="justify-between" to="/dashboard">
+                        Dashboard
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <hr />
                 <li onClick={handleLogout}>
                   <Link>Logout {state.user && state.user.email}</Link>
                 </li>
               </>
             )}
             {!state.user && (
-              <li>
-                <Link className="justify-between" to="/login">
-                  Login
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link className="justify-between" to="/login">
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link className="justify-between" to="/register">
+                    Register
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
         </div>
