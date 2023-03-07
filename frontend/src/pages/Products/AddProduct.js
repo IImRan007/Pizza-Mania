@@ -1,13 +1,68 @@
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { UserContext } from "../../context/user/UserContext";
+import { ProductContext } from "../../context/product/ProductContext";
+import { createProduct } from "../../context/product/ProductActions";
 
 const AddProduct = () => {
-  const handleChange = () => {};
-  const handleSubmit = () => {};
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: 50,
+  });
+  const [imgFile, setImgFile] = useState(null);
+  const [type, setType] = useState("veg");
+
+  const { name, description, price } = formData;
+
+  const { state } = useContext(UserContext);
+  const { dispatch } = useContext(ProductContext);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImgFile(event.target.files[0]);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("imgFile", imgFile);
+      formData.append("type", type);
+
+      const response = await createProduct(formData, state.user.token);
+      console.log({ response });
+      dispatch({ type: "CREATE_PRODUCT", payload: response });
+      // navigate("/");
+      toast.success("Product Added Successfully");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="p-4">
       <h1 className="font-bold text-2xl sm:text-center">Add Product:</h1>
-      <form className="mt-8 md:mt-16" onSubmit={handleSubmit}>
+      <form
+        className="mt-8 md:mt-16"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <div className="flex flex-col md:items-center gap-y-[0.5rem]">
           <label htmlFor="name" className="font-bold">
             Product Name
@@ -18,6 +73,7 @@ const AddProduct = () => {
             className="input input-primary input-bordered w-full max-w-xs sm:max-w-[30rem]"
             id="name"
             name="name"
+            value={name}
             onChange={handleChange}
             required
           />
@@ -32,6 +88,7 @@ const AddProduct = () => {
             id="description"
             name="description"
             onChange={handleChange}
+            value={description}
             required
           ></textarea>
         </div>
@@ -40,12 +97,15 @@ const AddProduct = () => {
             Type
           </label>
           <select
-            onChange={handleChange}
-            defaultValue
+            id="type"
+            name="type"
+            onChange={(e) => setType(e.target.value)}
+            defaultValue="veg"
             className="select select-primary w-full max-w-xs sm:max-w-[30rem]"
+            required
           >
-            <option>Veg</option>
-            <option>Non-Veg</option>
+            <option value="veg">Veg</option>
+            <option value="non-veg">Non-Veg</option>
           </select>
         </div>
         <div className="flex flex-col mt-8 md:items-center gap-y-[0.5rem]">
@@ -60,6 +120,7 @@ const AddProduct = () => {
             name="price"
             min={50}
             onChange={handleChange}
+            value={price}
             required
           />
         </div>
@@ -69,13 +130,16 @@ const AddProduct = () => {
           </label>
           <input
             type="file"
+            id="imgFile"
+            name="imgFile"
             className="file-input file-input-bordered w-full max-w-xs sm:max-w-[30rem]"
             required
+            onChange={onImageChange}
           />
         </div>
         <div className="mt-8 md:text-center mb-4">
           <button className="btn md:btn-md">Add Product</button>
-          <Link to="/">
+          <Link to="/dashboard">
             <button className="btn md:btn-md ml-4">Cancel</button>
           </Link>
         </div>

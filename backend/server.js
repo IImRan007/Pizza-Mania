@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const PORT = process.env.PORT || 8000;
 require("colors");
+const cors = require("cors");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDb = require("./config/db");
 
@@ -11,9 +12,10 @@ connectDb();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.status(200).json({ message: "Welcome to the Pizza Mania API" });
 });
 

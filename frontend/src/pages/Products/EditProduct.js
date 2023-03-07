@@ -62,19 +62,9 @@ const EditProduct = () => {
             required
           />
         </div>
-        <div className="flex flex-col mt-8 md:items-center gap-y-[0.5rem]">
-          <label htmlFor="image" className="font-bold">
-            Select Image
-          </label>
-          <input
-            type="file"
-            className="file-input file-input-bordered w-full max-w-xs sm:max-w-[30rem]"
-            required
-          />
-        </div>
         <div className="mt-8 md:text-center mb-4">
           <button className="btn md:btn-md">Edit Product</button>
-          <Link to="/">
+          <Link to="/dashboard">
             <button className="btn md:btn-md ml-4">Cancel</button>
           </Link>
         </div>

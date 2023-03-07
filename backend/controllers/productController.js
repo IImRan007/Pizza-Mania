@@ -7,7 +7,7 @@ const Product = require("../models/productModel");
 // @route POST /api/products
 // @access Private
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, description, type, price } = req.body;
+  const { name, description, type, price, imgFile } = req.body;
 
   if (!name || !description || !type || !price) {
     res.status(400);
@@ -38,7 +38,7 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 // @desc Get user products
-// @route POST /api/products
+// @route GET /api/products
 // @access Private
 const getProducts = asyncHandler(async (req, res) => {
   // Get user using the id in the JWT
