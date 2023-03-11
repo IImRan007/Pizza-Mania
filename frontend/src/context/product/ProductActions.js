@@ -37,15 +37,9 @@ export const getProducts = async (token) => {
 };
 
 // Get all products
-export const getAllProducts = async (token) => {
+export const getAllProducts = async () => {
   try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    const response = await axios.get(API_URL + "all", config);
+    const response = await axios.get(API_URL + "all");
 
     return response.data;
   } catch (error) {

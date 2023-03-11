@@ -18,7 +18,7 @@ const AddProduct = () => {
   const { name, description, price } = formData;
 
   const { state } = useContext(UserContext);
-  const { dispatch } = useContext(ProductContext);
+  const { dispatchProduct } = useContext(ProductContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -46,9 +46,9 @@ const AddProduct = () => {
       formData.append("type", type);
 
       const response = await createProduct(formData, state.user.token);
-      console.log({ response });
-      dispatch({ type: "CREATE_PRODUCT", payload: response });
-      // navigate("/");
+
+      dispatchProduct({ type: "CREATE_PRODUCT", payload: response });
+      navigate("/");
       toast.success("Product Added Successfully");
     } catch (error) {
       toast.error(error.message);
