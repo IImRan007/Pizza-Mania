@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Buffer } from "buffer";
 
 const ProductCard = ({ products }) => {
   return (
@@ -15,16 +16,20 @@ const ProductCard = ({ products }) => {
             >
               <figure>
                 <img
-                  src="https://i.ibb.co/bJ6tKqh/stretched-1920-1080-888979.jpg"
+                  src={`data:${item.imgFile.contentType};base64, ${Buffer.from(
+                    item.imgFile.data
+                  ).toString("base64")}`}
                   alt="Shoes"
                 />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">
                   {item.name}
-                  <div className="badge badge-secondary">VEG</div>
+                  <div className="badge badge-secondary capitalize">
+                    {item.type}
+                  </div>
                 </h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <p>{item.description}</p>
                 <div className="card-actions justify-end">
                   <div className="badge badge-outline">₹{item.price}</div>
                 </div>

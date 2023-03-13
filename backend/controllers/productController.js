@@ -68,12 +68,12 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // @access Private
 const getProduct = asyncHandler(async (req, res) => {
   // Get user using the id in the JWT
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
 
-  if (!user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
+  // if (!user) {
+  //   res.status(401);
+  //   throw new Error("User not found");
+  // }
 
   const product = await Product.findById(req.params.id);
 
@@ -82,13 +82,36 @@ const getProduct = asyncHandler(async (req, res) => {
     throw new Error("Product not found");
   }
 
-  if (product.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
+  // if (product.user.toString() !== req.user.id) {
+  //   res.status(401);
+  //   throw new Error("Not authorized");
+  // }
 
   res.status(200).json(product);
 });
+// const getProduct = asyncHandler(async (req, res) => {
+//   // Get user using the id in the JWT
+//   const user = await User.findById(req.user.id);
+
+//   if (!user) {
+//     res.status(401);
+//     throw new Error("User not found");
+//   }
+
+//   const product = await Product.findById(req.params.id);
+
+//   if (!product) {
+//     res.status(404);
+//     throw new Error("Product not found");
+//   }
+
+//   if (product.user.toString() !== req.user.id) {
+//     res.status(401);
+//     throw new Error("Not authorized");
+//   }
+
+//   res.status(200).json(product);
+// });
 
 // @desc Update product
 // @route PUT /api/products/:id

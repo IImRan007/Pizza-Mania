@@ -50,6 +50,11 @@ const ProductReducer = (state, action) => {
         loading: false,
         message: "Product Deleted Successfully",
       };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: true,
+      };
     default:
       return state;
   }

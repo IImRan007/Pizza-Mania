@@ -23,7 +23,7 @@ router.get("/all", getAllProducts);
 
 router
   .route("/:id")
-  .get(protect, getProduct)
+  .get(getProduct)
   .put(protect, updateProduct)
   .delete(protect, deleteProduct);
 
