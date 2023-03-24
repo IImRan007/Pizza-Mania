@@ -2,7 +2,8 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
-const CartItem = () => {
+const CartItem = ({ products }) => {
+  console.log({ products });
   const [quantity, setQuantity] = useState(1);
 
   const price = quantity * 200;
@@ -23,48 +24,66 @@ const CartItem = () => {
   };
 
   const handleSubmit = () => {};
+
+  if (!products) {
+    return <h1>Loading</h1>;
+  }
   return (
-    <div className="card lg:card-side bg-[#a2d2ff] shadow-xl mt-[1.5rem] lg:items-center">
-      <figure>
-        <img
-          src="https://i.ibb.co/dgS5LKm/596343.jpg"
-          alt="cart"
-          className="lg:h-[45vh]"
-        />
-      </figure>
-      <div className="card-body lg:items-center gap-y-[2rem]">
-        <h2 className="card-title text-[27px]">Product Name</h2>
-        <h2 className="card-title">
-          Total Price: <span className="font-bold">₹{price}</span>
-        </h2>
-        <div className="card-actions flex-nowrap mt-4 gap-x-4">
-          <div className="btn-group">
-            <button className="btn bg-black text-white" onClick={decrement}>
-              -
-            </button>
-            <input
-              type="number"
-              placeholder="Qty"
-              min={1}
-              value={quantity}
-              className="input max-w-[5rem] font-bold"
-              onChange={handleChange}
-            />
-            <button
-              className="btn bg-black text-white"
-              onClick={() => setQuantity(parseInt(quantity) + 1)}
-            >
-              +
-            </button>
+    <>
+      {products &&
+        products.map((item) => (
+          <div
+            className="card lg:card-side bg-[#a2d2ff] shadow-xl mt-[1.5rem] lg:items-center"
+            key={item._id}
+          >
+            <figure>
+              <img
+                src="https://i.ibb.co/dgS5LKm/596343.jpg"
+                alt="cart"
+                className="lg:h-[45vh]"
+              />
+            </figure>
+            <div className="card-body lg:items-center gap-y-[2rem]">
+              <h2 className="card-title text-[27px]">{item.name}</h2>
+              <h2 className="card-title">
+                Total Price: <span className="font-bold">₹{price}</span>
+              </h2>
+              <div className="card-actions flex-nowrap mt-4 gap-x-4">
+                <div className="btn-group">
+                  <button
+                    className="btn bg-black text-white"
+                    onClick={decrement}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    placeholder="Qty"
+                    min={1}
+                    value={quantity}
+                    className="input max-w-[5rem] font-bold"
+                    onChange={handleChange}
+                  />
+                  <button
+                    className="btn bg-black text-white"
+                    onClick={() => setQuantity(parseInt(quantity) + 1)}
+                  >
+                    +
+                  </button>
+                </div>
+                <Link to={`/buy-now`}>
+                  <button
+                    className="btn bg-black text-white"
+                    onClick={handleSubmit}
+                  >
+                    Buy Now
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
-          <Link to={`/buy-now`}>
-            <button className="btn bg-black text-white" onClick={handleSubmit}>
-              Buy Now
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
+        ))}
+    </>
   );
 };
 export default CartItem;

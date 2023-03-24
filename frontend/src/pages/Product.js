@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Buffer } from "buffer";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { imagefrombuffer } from "imagefrombuffer";
 import { getProduct } from "../context/product/ProductActions";
+import { addItemToCart } from "../context/cart/CartActions";
+import { CartContext } from "../context/cart/CartContext";
+import { UserContext } from "../context/user/UserContext";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const [isCheeseEnabled, setIsCheeseEnabled] = useState(false);
@@ -10,7 +13,11 @@ const Product = () => {
   const [size, setSize] = useState("");
   const [product, setProduct] = useState({});
 
+  const { state } = useContext(UserContext);
+  const { dispatchCart } = useContext(CartContext);
+
   const { id } = useParams();
+  const navigate = useNavigate();
 
   let finalPrice = product.price;
 
@@ -23,6 +30,7 @@ const Product = () => {
   };
 
   const handleSize = (e) => {
+    console.log(e.target.value);
     setSize(e.target.value);
   };
 
@@ -48,6 +56,24 @@ const Product = () => {
 
     fetchProduct();
   }, [id]);
+
+  const addItem = async () => {
+    try {
+      const data = {
+        name: product.name,
+        size: size,
+        type: product.type,
+        price: product.price,
+      };
+
+      const response = await addItemToCart(data, state.user.token);
+      dispatchCart({ type: "ADD_CART", payload: response });
+      navigate("/cart");
+      toast.success("Product Added Successfully");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="p-4 items-center lg:flex md:justify-center lg:p-8 lg:justify-evenly mb-[14rem]">
@@ -77,7 +103,7 @@ const Product = () => {
           <p className="font-bold text-[18px]">Select Size:</p>
           <select
             onChange={handleSize}
-            defaultValue
+            defaultValue="Regular"
             className="select select-primary w-full max-w-xs mt-4"
           >
             <option>Regular</option>
@@ -109,9 +135,9 @@ const Product = () => {
           </label>
         </div>
         <div className="mt-8 flex items-center gap-x-8">
-          <Link to={`/cart`}>
-            <button className="btn bg-black text-white">Add to Cart</button>
-          </Link>
+          <button onClick={() => addItem()} className="btn bg-black text-white">
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
