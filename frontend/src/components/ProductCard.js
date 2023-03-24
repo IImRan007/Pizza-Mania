@@ -7,7 +7,7 @@ const ProductCard = ({ products }) => {
       <div>
         <p className="font-bold text-[2rem]">Products</p>
       </div>
-      <div className="flex justify-between flex-wrap">
+      <div className="flex flex-wrap gap-8">
         {products &&
           products.map((item) => (
             <div

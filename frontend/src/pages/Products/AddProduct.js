@@ -48,7 +48,7 @@ const AddProduct = () => {
       const response = await createProduct(formData, state.user.token);
 
       dispatchProduct({ type: "CREATE_PRODUCT", payload: response });
-      navigate("/");
+      navigate("/dashboard");
       toast.success("Product Added Successfully");
     } catch (error) {
       toast.error(error.message);

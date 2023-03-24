@@ -12,8 +12,8 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 function ImageSlider() {
   return (
-    <div style={{ padding: "1rem" }}>
-      <p className="exploreHeading text-[2rem] mb-4">Recommended</p>
+    <div>
+      <p className="exploreHeading text-[2rem] mb-4 p-4">Recommended</p>
 
       <Swiper
         slidesPerView={1}

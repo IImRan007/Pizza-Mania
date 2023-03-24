@@ -1,12 +1,18 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { Buffer } from "buffer";
+import { imagefrombuffer } from "imagefrombuffer";
+import { getProduct } from "../context/product/ProductActions";
 
-const Product = ({ price = 200 }) => {
+const Product = () => {
   const [isCheeseEnabled, setIsCheeseEnabled] = useState(false);
   const [isToppingsEnabled, setIsToppingsEnabled] = useState(false);
   const [size, setSize] = useState("");
+  const [product, setProduct] = useState({});
 
-  let finalPrice = price;
+  const { id } = useParams();
+
+  let finalPrice = product.price;
 
   const handleCheeseChange = (e) => {
     setIsCheeseEnabled(e.target.checked);
@@ -33,15 +39,30 @@ const Product = ({ price = 200 }) => {
     finalPrice = finalPrice + 50;
   }
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const productData = await getProduct(id);
+      console.log(productData);
+      setProduct(productData);
+    };
+
+    fetchProduct();
+  }, [id]);
+
   return (
     <div className="p-4 items-center lg:flex md:justify-center lg:p-8 lg:justify-evenly mb-[14rem]">
       <div>
         <div>
-          <h1 className="font-bold text-[23px]">Product name</h1>
+          <h1 className="font-bold text-[23px]">
+            {product && product.name} ({product.type})
+          </h1>
         </div>
         <div className="mt-4">
           <img
-            src="https://i.ibb.co/dgS5LKm/596343.jpg"
+            src={imagefrombuffer({
+              type: product.imgFile?.contentType,
+              data: product.imgFile?.data?.data,
+            })}
             alt="product"
             className="sm:max-w-[80%] md:max-w-[75%] lg:max-w-[84%] rounded-[18px] shadow-xl"
           />
@@ -50,7 +71,7 @@ const Product = ({ price = 200 }) => {
       <div className="mt-4">
         <h2 className="font-bold text-[18px]">Details:</h2>
         <div className="mt-4">
-          <p>Classic delight with 100% real mozzarella cheese and paneer.</p>
+          <p>{product && product.description}</p>
         </div>
         <div className="mt-4">
           <p className="font-bold text-[18px]">Select Size:</p>
