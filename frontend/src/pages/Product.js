@@ -72,7 +72,8 @@ const Product = () => {
       // navigate("/cart");
       toast.success("Product Added Successfully");
     } catch (error) {
-      toast.error(error.message);
+      navigate("/login");
+      toast.error("Please login first");
     }
   };
 
