@@ -21,8 +21,31 @@ import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from "./context/user/UserContext";
 import { ProductProvider } from "./context/product/ProductContext";
 import { CartProvider } from "./context/cart/CartContext";
+import { useEffect } from "react";
 
 const App = () => {
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+
+      script.src = src;
+
+      script.onload = () => {
+        resolve(true);
+      };
+
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  });
+
   return (
     <UserProvider>
       <ProductProvider>

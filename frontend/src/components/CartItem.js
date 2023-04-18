@@ -1,88 +1,70 @@
-import { useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
+import displayRazorpay from "../utils/PaymentGateway";
+import Item from "./Item";
 
-import { Link } from "react-router-dom";
+const initialProduct = (products) => {
+  return products.map((product) => ({
+    ...product,
+    qty: 1,
+  }));
+};
 
 const CartItem = ({ products }) => {
   console.log({ products });
-  const [quantity, setQuantity] = useState(1);
 
-  const price = quantity * 200;
+  const [quantity, setQuantity] = useState([]);
 
-  const decrement = () => {
-    if (quantity <= 1) {
-      return;
-    } else {
-      setQuantity(quantity - 1);
-    }
+  useLayoutEffect(() => {
+    const allProducts = initialProduct(products);
+    setQuantity(allProducts);
+  }, [products]);
+
+  const handleIncDec = (id, type) => {
+    const filteredQty = quantity.map((qty) => {
+      if (qty._id === id) {
+        console.log("qty", qty.qty);
+        let newQty = type === "inc" ? qty.qty + 1 : qty.qty - 1;
+        console.log("newQty", newQty);
+        return { ...qty, qty: newQty };
+      } else {
+        return qty;
+      }
+    });
+    setQuantity(filteredQty);
   };
 
-  const handleChange = (e) => {
-    if (e.target.value === "" || e.target.value === 0) {
-      e.target.value = 1;
-    }
-    setQuantity(e.target.value);
-  };
+  const grandTotalPrice = useMemo(
+    () => quantity.reduce((total, item) => total + item.qty * item.price, 0),
+    [quantity]
+  );
 
-  const handleSubmit = () => {};
-
-  if (!products) {
-    return <h1>Loading</h1>;
+  if (quantity.length < 1) {
+    return <h1>Seems, there are no items in your cart.</h1>;
   }
   return (
     <>
-      {products &&
-        products.map((item) => (
-          <div
-            className="card lg:card-side bg-[#a2d2ff] shadow-xl mt-[1.5rem] lg:items-center"
-            key={item._id}
-          >
-            <figure>
-              <img
-                src="https://i.ibb.co/dgS5LKm/596343.jpg"
-                alt="cart"
-                className="lg:h-[45vh]"
-              />
-            </figure>
-            <div className="card-body lg:items-center gap-y-[2rem]">
-              <h2 className="card-title text-[27px]">{item.name}</h2>
-              <h2 className="card-title">
-                Total Price: <span className="font-bold">₹{price}</span>
-              </h2>
-              <div className="card-actions flex-nowrap mt-4 gap-x-4">
-                <div className="btn-group">
-                  <button
-                    className="btn bg-black text-white"
-                    onClick={decrement}
-                  >
-                    -
-                  </button>
-                  <input
-                    type="number"
-                    placeholder="Qty"
-                    min={1}
-                    value={quantity}
-                    className="input max-w-[5rem] font-bold"
-                    onChange={handleChange}
-                  />
-                  <button
-                    className="btn bg-black text-white"
-                    onClick={() => setQuantity(parseInt(quantity) + 1)}
-                  >
-                    +
-                  </button>
-                </div>
-                <Link to={`/buy-now`}>
-                  <button
-                    className="btn bg-black text-white"
-                    onClick={handleSubmit}
-                  >
-                    Buy Now
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
+      {quantity &&
+        quantity.map((item) => (
+          <Item item={item} key={item._id} handleIncDec={handleIncDec} />
         ))}
+
+      {quantity && (
+        <>
+          <div className="mt-8 font-bold">Sub Total: {grandTotalPrice}</div>
+          <div className="mt-8">
+            <button
+              className="btn bg-black text-white"
+              onClick={() =>
+                displayRazorpay({
+                  price: grandTotalPrice,
+                })
+              }
+            >
+              Buy Now
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 };

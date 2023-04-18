@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const cloudinary = require("cloudinary").v2;
 
 const User = require("../models/userModel");
 const Product = require("../models/productModel");
@@ -8,6 +9,7 @@ const Product = require("../models/productModel");
 // @access Private
 const createProduct = asyncHandler(async (req, res) => {
   const { name, description, type, price, imgFile } = req.body;
+  // console.log(req.files);
 
   if (!name || !description || !type || !price) {
     res.status(400);
@@ -22,14 +24,20 @@ const createProduct = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
+  const fileRes = await cloudinary.uploader.upload(
+    req.files.imgFile.tempFilePath,
+    { folder: "pizzaApp" }
+  );
+  console.log(fileRes);
+
   const product = await Product.create({
     name,
     description,
     type,
     price,
     imgFile: {
-      data: req.file.buffer,
-      contentType: req.file.mimetype,
+      public_id: fileRes.public_id,
+      secure_url: fileRes.secure_url,
     },
     user: req.user.id,
   });
@@ -58,7 +66,7 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route GET /api/products/all
 // @access Public
 const getAllProducts = asyncHandler(async (req, res) => {
-  const data = await Product.find({});
+  const data = await Product.find();
 
   res.status(200).json(data);
 });
@@ -171,6 +179,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Not authorized");
   }
+
+  await cloudinary.uploader.destroy(product.imgFile.public_id);
 
   await product.remove();
 

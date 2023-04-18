@@ -3,6 +3,8 @@ import ImageSlider from "../components/ImageSlider";
 import ProductCard from "../components/ProductCard";
 import { getAllProducts } from "../context/product/ProductActions";
 import { ProductContext } from "../context/product/ProductContext";
+import ImageContainer from "../components/ImageContainer";
+import Spinner from "../components/Spinner";
 
 const Home = () => {
   const [products, setProducts] = useState(null);
@@ -20,8 +22,13 @@ const Home = () => {
     fetchProducts();
   }, [dispatchProduct]);
 
+  if (!products) {
+    return <Spinner />;
+  }
+
   return (
     <div>
+      {/* <ImageContainer /> */}
       <ImageSlider />
       <ProductCard products={products} />
     </div>

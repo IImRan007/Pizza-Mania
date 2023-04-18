@@ -10,6 +10,22 @@ body {
   box-sizing: border-box;
 }
 
+/* html {
+  background: url("https://i.ibb.co/H2bynV2/pizza-gc3d7a0fdd-1920.jpg")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */
+
+.bg {
+  height: 47%;
+  background: #ffffff
+    url("https://images.unsplash.com/photo-1594791670225-09300060596a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=ardalan-hamedani-NacaiHMogpA-unsplash.jpg&w=2400")
+    center center/cover no-repeat;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,7 +50,7 @@ body {
 
 .swiper-container {
   min-height: 225px;
-  height: 30vw;
+  height: 40vw;
 }
 
 .swiper-pagination-bullet-active {

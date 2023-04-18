@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Buffer } from "buffer";
 import {
   deleteProduct,
   getAllProducts,
@@ -19,7 +18,8 @@ const Dashboard = () => {
     const fetchProducts = async () => {
       const data = await getAllProducts();
       console.log(data);
-      dispatchProduct({ type: "GET_PRODCUTS", payload: data });
+      dispatchProduct({ type: "GET_PRODCUTS" });
+      // console.log(data);
 
       setProducts(data);
     };
@@ -68,11 +68,7 @@ const Dashboard = () => {
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
                           <img
-                            src={`data:${
-                              item.imgFile.contentType
-                            };base64, ${Buffer.from(item.imgFile.data).toString(
-                              "base64"
-                            )}`}
+                            src={item.imgFile.secure_url}
                             alt="Avatar Tailwind CSS Component"
                           />
                         </div>

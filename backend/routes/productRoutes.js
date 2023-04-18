@@ -14,10 +14,12 @@ const {
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router
-  .route("/")
-  .post(protect, upload.single("imgFile"), createProduct)
-  .get(protect, getProducts);
+router.route("/").post(protect, createProduct).get(protect, getProducts);
+
+// router
+//   .route("/")
+//   .post(protect, upload.single("imgFile"), createProduct)
+//   .get(protect, getProducts);
 
 router.get("/all", getAllProducts);
 

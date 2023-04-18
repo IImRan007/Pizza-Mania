@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { imagefrombuffer } from "imagefrombuffer";
 import { getProduct } from "../context/product/ProductActions";
 import { addItemToCart } from "../context/cart/CartActions";
 import { CartContext } from "../context/cart/CartContext";
@@ -10,7 +9,7 @@ import { toast } from "react-toastify";
 const Product = () => {
   const [isCheeseEnabled, setIsCheeseEnabled] = useState(false);
   const [isToppingsEnabled, setIsToppingsEnabled] = useState(false);
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState("Regular");
   const [product, setProduct] = useState({});
 
   const { state } = useContext(UserContext);
@@ -63,12 +62,14 @@ const Product = () => {
         name: product.name,
         size: size,
         type: product.type,
-        price: product.price,
+        price: finalPrice,
       };
+
+      console.log({ data });
 
       const response = await addItemToCart(data, state.user.token);
       dispatchCart({ type: "ADD_CART", payload: response });
-      navigate("/cart");
+      // navigate("/cart");
       toast.success("Product Added Successfully");
     } catch (error) {
       toast.error(error.message);
@@ -85,12 +86,9 @@ const Product = () => {
         </div>
         <div className="mt-4">
           <img
-            src={imagefrombuffer({
-              type: product.imgFile?.contentType,
-              data: product.imgFile?.data?.data,
-            })}
+            src={product.imgFile && product.imgFile.secure_url}
             alt="product"
-            className="sm:max-w-[80%] md:max-w-[75%] lg:max-w-[84%] rounded-[18px] shadow-xl"
+            className="sm:max-w-[80%] md:max-w-[75%] lg:max-w-[84%] rounded-[18px] shadow-xl h-[40vh] object-cover"
           />
         </div>
       </div>

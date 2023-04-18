@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SwiperCore, {
   Navigation,
@@ -8,55 +9,46 @@ import SwiperCore, {
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
+import { getAllProducts } from "../context/product/ProductActions";
+
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 function ImageSlider() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getAllProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div>
       <p className="exploreHeading text-[2rem] mb-4 p-4">Recommended</p>
-
       <Swiper
         slidesPerView={1}
         pagination={{ clickable: true }}
         autoplay={true}
       >
-        <SwiperSlide key={1}>
-          <Link to={`/pizza/${1}`}>
-            <div
-              style={{
-                background: `url("https://lh6.googleusercontent.com/8RJeWIyQUR_lMZd7oMkyJVirEcO4c1SB60wmZe_YO06DysbXdUZOnEKuo1MgXFmxMdw=w1200-h630-p") center no-repeat`,
-              }}
-              className="swiperSlideDiv"
-            >
-              <p className="swiperSlideText">NAME</p>
-              <p className="swiperSlidePrice">$2.5</p>
-            </div>
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide key={2}>
-          <div
-            style={{
-              background: `url("https://i.ibb.co/0s8WpSn/mahyar-motebassem-p-GA4z-Hvpo5-E-unsplash.jpg") center no-repeat`,
-              backgroundSize: "cover",
-            }}
-            className="swiperSlideDiv"
-          >
-            <p className="swiperSlideText">NAME</p>
-            <p className="swiperSlidePrice">$2.5</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide key={3}>
-          <div
-            style={{
-              background: `url("https://i.ibb.co/0s8WpSn/mahyar-motebassem-p-GA4z-Hvpo5-E-unsplash.jpg") center no-repeat`,
-              backgroundSize: "cover",
-            }}
-            className="swiperSlideDiv"
-          >
-            <p className="swiperSlideText">NAME</p>
-            <p className="swiperSlidePrice">$2.5</p>
-          </div>
-        </SwiperSlide>
+        {products &&
+          products.map((product) => (
+            <SwiperSlide key={product._id}>
+              <Link to={`/pizza/${product._id}`}>
+                <div className="swiperSlideDiv">
+                  <img
+                    className="swiperSlideDiv object-cover"
+                    src={product.imgFile.secure_url}
+                    alt="Shoes"
+                  />
+                  <p className="swiperSlideText">{product.name}</p>
+                  <p className="swiperSlidePrice">₹{product.price}</p>
+                </div>
+              </Link>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </div>
   );

@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { Buffer } from "buffer";
+import Spinner from "./Spinner";
 
 const ProductCard = ({ products }) => {
+  if (!products) {
+    return <Spinner />;
+  }
+
   return (
-    <div className="p-4 mb-8">
+    <div className="p-4 mb-12">
       <div>
         <p className="font-bold text-[2rem]">Products</p>
       </div>
@@ -15,12 +19,7 @@ const ProductCard = ({ products }) => {
               key={item._id}
             >
               <figure>
-                <img
-                  src={`data:${item.imgFile.contentType};base64, ${Buffer.from(
-                    item.imgFile.data
-                  ).toString("base64")}`}
-                  alt="Shoes"
-                />
+                <img src={item.imgFile.secure_url} alt="product" />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">

@@ -18,6 +18,7 @@ const Cart = () => {
 
     fetchCartProducts();
   }, [dispatchCart, state.user.token]);
+
   return (
     <div className="mb-[12rem] p-4">
       <div>

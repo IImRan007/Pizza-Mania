@@ -24,8 +24,8 @@ const productSchema = mongoose.Schema(
       required: [true, "Please add price of the product"],
     },
     imgFile: {
-      data: Buffer,
-      contentType: String,
+      public_id: String,
+      secure_url: String,
     },
   },
   {

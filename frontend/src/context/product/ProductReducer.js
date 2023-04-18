@@ -1,4 +1,5 @@
 const ProductReducer = (state, action) => {
+  console.log("state", state);
   switch (action.type) {
     case "CREATE_PRODUCT":
       return {
