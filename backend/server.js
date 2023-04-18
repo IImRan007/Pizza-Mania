@@ -12,8 +12,8 @@ const fileUpload = require("express-fileupload");
 
 cloudinary.config({
   cloud_name: "dxazzitas",
-  api_key: "498934386722228",
-  api_secret: "0eH3wqgGO_8yd-PkkNl93OEo2mA",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // Connect to databse
