@@ -9,6 +9,7 @@ const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDb = require("./config/db");
 const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload");
+const path = require("path");
 
 cloudinary.config({
   cloud_name: "dxazzitas",
