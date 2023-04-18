@@ -30,7 +30,9 @@ const ProductCard = ({ products }) => {
                 </h2>
                 <p>{item.description}</p>
                 <div className="card-actions justify-end">
-                  <div className="badge badge-outline">₹{item.price}</div>
+                  <div className="badge badge-outline font-bold">
+                    ₹{item.price}
+                  </div>
                 </div>
                 <div className="card-actions justify-start">
                   <Link to={`/pizza/${item._id}`}>
