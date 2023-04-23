@@ -22,6 +22,12 @@ const addProductToCart = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
+  // const fileRes = await cloudinary.uploader.upload(
+  //   req.files.imgFile.tempFilePath,
+  //   { folder: "pizzaAppCart" }
+  // );
+  // console.log(fileRes);
+
   const product = await Cart.create({
     name,
     size,

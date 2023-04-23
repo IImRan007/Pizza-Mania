@@ -50,10 +50,12 @@ const CartItem = ({ products }) => {
 
       {quantity && (
         <>
-          <div className="mt-8 font-bold">Sub Total: {grandTotalPrice}</div>
-          <div className="mt-8">
+          <div className="mt-8 font-bold text-center">
+            Sub Total: {grandTotalPrice}
+          </div>
+          <div className="mt-8 text-center">
             <button
-              className="btn bg-black text-white"
+              className="btn dark:bg-gray-900 text-white"
               onClick={() =>
                 displayRazorpay({
                   price: grandTotalPrice,

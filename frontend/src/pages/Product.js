@@ -62,6 +62,7 @@ const Product = () => {
         name: product.name,
         size: size,
         type: product.type,
+        imgFile: product.imgFile,
         price: finalPrice,
       };
 
