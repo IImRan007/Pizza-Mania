@@ -23,6 +23,9 @@ const cartSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    imgFile: {
+      type: String,
+    },
   },
   {
     timestamps: true,

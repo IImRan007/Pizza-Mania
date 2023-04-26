@@ -7,7 +7,7 @@ const Cart = require("../models/cartModel");
 // @route POST /api/cart
 // @access Private
 const addProductToCart = asyncHandler(async (req, res) => {
-  const { name, size, type, price } = req.body;
+  const { name, size, type, price, imgFile } = req.body;
 
   if (!name || !size || !type || !price) {
     res.status(400);
@@ -33,6 +33,7 @@ const addProductToCart = asyncHandler(async (req, res) => {
     size,
     type,
     price,
+    imgFile,
     user: req.user.id,
   });
 

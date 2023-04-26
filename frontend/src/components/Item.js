@@ -6,54 +6,6 @@ const Item = ({ item, handleIncDec }) => {
   }
 
   return (
-    // <div
-    //   className="card lg:card-side bg-[#a2d2ff] shadow-xl mt-[1.5rem] lg:items-center max-w-[40rem]"
-    //   key={item._id}
-    // >
-    //   <div className="card-body lg:items-center gap-y-[2rem]">
-    //     {item.imgFile && <img src={item.imgFile.secure_url} alt="product" />}
-    //     <h2 className="card-title text-[27px]">
-    //       {item.name} ({item.size})
-    //     </h2>
-    //     <h2 className="card-title">
-    //       Total Price: <span className="font-bold">₹{individualPrice} </span>
-    //     </h2>
-    //     <div className="card-actions flex-nowrap mt-4 gap-x-4">
-    //       <div className="btn-group">
-    //         <button
-    //           className="btn bg-black text-white"
-    //           onClick={() => {
-    //             if (!item.qty) {
-    //               return;
-    //             }
-
-    //             handleIncDec(item._id, "dec");
-    //           }}
-    //         >
-    //           -
-    //         </button>
-    //         <input
-    //           type="text"
-    //           placeholder="Qty"
-    //           min={1}
-    //           value={item.qty}
-    //           className="input max-w-[5rem] font-bold"
-    //           onChange={(e) => {
-    //             console.log(e);
-    //             handleIncDec(item._id, "inc");
-    //           }}
-    //         />
-    //         <button
-    //           className="btn bg-black text-white"
-    //           onClick={() => handleIncDec(item._id, "inc")}
-    //         >
-    //           +
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-
     <div className="flex flex-col mx-auto max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100 mt-[3rem] rounded-xl">
       <ul className="flex flex-col divide-y divide-gray-700">
         <li
@@ -61,11 +13,11 @@ const Item = ({ item, handleIncDec }) => {
           className="flex flex-col py-6 sm:flex-row sm:justify-between"
         >
           <div className="flex w-full space-x-2 sm:space-x-4">
-            {/* <img
-                className="flex-shrink-0 object-contain w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
-                src={product.imageSrc}
-                alt={product.name}
-              /> */}
+            <img
+              className="flex-shrink-0 object-contain w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
+              src={item.imgFile}
+              alt={item.name}
+            />
             <div className="flex flex-col justify-between w-full pb-4">
               <div className="flex justify-between w-full pb-2 space-x-2">
                 <div className="space-y-1">

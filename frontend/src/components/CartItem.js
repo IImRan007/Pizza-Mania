@@ -51,7 +51,7 @@ const CartItem = ({ products }) => {
       {quantity && (
         <>
           <div className="mt-8 font-bold text-center">
-            Sub Total: {grandTotalPrice}
+            Sub Total: ₹{grandTotalPrice}
           </div>
           <div className="mt-8 text-center">
             <button
