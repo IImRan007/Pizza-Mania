@@ -7,6 +7,7 @@ import {
 } from "../../context/product/ProductActions";
 import { UserContext } from "../../context/user/UserContext";
 import { toast } from "react-toastify";
+import Spinner from "../../components/Spinner";
 
 const EditProduct = () => {
   const [product, setProduct] = useState({
@@ -60,7 +61,7 @@ const EditProduct = () => {
   };
 
   if (stateProduct.loading) {
-    return <h1>Loading</h1>;
+    return <Spinner />;
   } else if (product) {
     return (
       <div className="p-4">

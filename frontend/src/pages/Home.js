@@ -3,7 +3,6 @@ import ImageSlider from "../components/ImageSlider";
 import ProductCard from "../components/ProductCard";
 import { getAllProducts } from "../context/product/ProductActions";
 import { ProductContext } from "../context/product/ProductContext";
-import ImageContainer from "../components/ImageContainer";
 import Spinner from "../components/Spinner";
 
 const Home = () => {
@@ -28,7 +27,6 @@ const Home = () => {
 
   return (
     <div>
-      {/* <ImageContainer /> */}
       <ImageSlider />
       <ProductCard products={products} />
     </div>

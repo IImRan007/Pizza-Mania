@@ -1,8 +1,16 @@
-const Item = ({ item, handleIncDec }) => {
+import Spinner from "./Spinner";
+
+const Item = ({ item, handleIncDec, handleDeleteItem }) => {
   const price = parseInt(item.qty) * parseInt(item.price);
   let individualPrice = price ? price : item.price;
   if (!item.qty) {
     individualPrice = 0;
+  }
+
+  console.log("item", item);
+
+  if (!item) {
+    return <Spinner />;
   }
 
   return (
@@ -33,6 +41,7 @@ const Item = ({ item, handleIncDec }) => {
               <div className="flex text-sm divide-x">
                 <button
                   type="button"
+                  onClick={() => handleDeleteItem(item._id)}
                   className="flex items-center px-2 py-1 pl-0 space-x-1"
                 >
                   <svg
@@ -63,17 +72,6 @@ const Item = ({ item, handleIncDec }) => {
                   >
                     -
                   </button>
-                  {/* <input
-                    type="text"
-                    placeholder="Qty"
-                    min={1}
-                    value={item.qty}
-                    className="input max-w-[5rem] font-bold text-black"
-                    onChange={(e) => {
-                      console.log(e);
-                      handleIncDec(item._id, "inc");
-                    }}
-                  /> */}
                   <button
                     className="btn bg-black text-white"
                     onClick={() => handleIncDec(item._id, "inc")}

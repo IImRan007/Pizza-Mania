@@ -37,7 +37,7 @@ export const getCartItems = async (token) => {
 };
 
 // Delete cart item
-export const deleteProduct = async (itemId, token) => {
+export const deleteCartItem = async (itemId, token) => {
   try {
     const config = {
       headers: {

@@ -8,6 +8,7 @@ import {
 import { ProductContext } from "../context/product/ProductContext";
 import { UserContext } from "../context/user/UserContext";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const Dashboard = () => {
   const [products, setProducts] = useState(null);
@@ -38,6 +39,10 @@ const Dashboard = () => {
 
     toast.success("Product Deleted Successfully");
   };
+
+  if (!products) {
+    return <Spinner />;
+  }
 
   return (
     <div className="mb-[10rem] p-4">

@@ -1,6 +1,10 @@
 import { useLayoutEffect, useMemo, useState } from "react";
 import displayRazorpay from "../utils/PaymentGateway";
 import Item from "./Item";
+import { deleteCartItem } from "../context/cart/CartActions";
+import { useContext } from "react";
+import { UserContext } from "../context/user/UserContext";
+import { toast } from "react-toastify";
 
 const initialProduct = (products) => {
   return products.map((product) => ({
@@ -13,6 +17,8 @@ const CartItem = ({ products }) => {
   console.log({ products });
 
   const [quantity, setQuantity] = useState([]);
+
+  const { state } = useContext(UserContext);
 
   useLayoutEffect(() => {
     const allProducts = initialProduct(products);
@@ -41,11 +47,24 @@ const CartItem = ({ products }) => {
   if (quantity.length < 1) {
     return <h1>Seems, there are no items in your cart.</h1>;
   }
+
+  const handleDeleteItem = async (id) => {
+    const data = await deleteCartItem(id, state.user.token);
+    const filteredQuantity = quantity.filter((q) => q._id !== id);
+    setQuantity(filteredQuantity);
+    console.log({ data });
+    toast.success("Item removed successfully");
+  };
   return (
     <>
       {quantity &&
         quantity.map((item) => (
-          <Item item={item} key={item._id} handleIncDec={handleIncDec} />
+          <Item
+            item={item}
+            key={item._id}
+            handleIncDec={handleIncDec}
+            handleDeleteItem={handleDeleteItem}
+          />
         ))}
 
       {quantity && (

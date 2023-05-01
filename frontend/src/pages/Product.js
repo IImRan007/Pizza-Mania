@@ -5,6 +5,7 @@ import { addItemToCart } from "../context/cart/CartActions";
 import { CartContext } from "../context/cart/CartContext";
 import { UserContext } from "../context/user/UserContext";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const Product = () => {
   const [isCheeseEnabled, setIsCheeseEnabled] = useState(false);
@@ -77,6 +78,10 @@ const Product = () => {
       toast.error("Please login first");
     }
   };
+
+  if (!product) {
+    return <Spinner />;
+  }
 
   return (
     <div className="p-4 items-center lg:flex md:justify-center lg:p-8 lg:justify-evenly mb-[14rem]">
