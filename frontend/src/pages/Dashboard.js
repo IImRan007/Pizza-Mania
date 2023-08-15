@@ -90,7 +90,7 @@ const Dashboard = () => {
                       {item.type}
                     </span>
                   </td>
-                  <td>{item.price}</td>
+                  <td>₹{item.price}</td>
                   <th>
                     <Link to={`/edit-product/${item._id}`}>
                       <button

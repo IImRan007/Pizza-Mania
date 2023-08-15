@@ -56,7 +56,7 @@ const ProductCard = ({ products }) => {
                 <div className="card-actions justify-start">
                   <Link to={`/pizza/${item._id}`}>
                     <button className="btn btn-primary bg-[#00008b]">
-                      View PRoduct
+                      View Product
                     </button>
                   </Link>
                 </div>
