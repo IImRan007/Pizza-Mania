@@ -27,13 +27,13 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex-none gap-4">
-        <div className="form-control">
+        {/* <div className="form-control">
           <input
             type="text"
             placeholder="Search"
             className="input input-bordered text-black"
           />
-        </div>
+        </div> */}
         <div className="hidden sm:flex">
           <Link to="/cart">
             <button className="btn hover:bg-white hover:text-black bg-white text-black">

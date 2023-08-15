@@ -1,4 +1,4 @@
-import SpinnerGif from "./assets/spinner.gif";
+import Loading from "../components/assets/loading.gif";
 
 const Spinner = () => {
   return (
@@ -6,7 +6,7 @@ const Spinner = () => {
       <img
         width={180}
         className="text-center mx-auto"
-        src={SpinnerGif}
+        src={Loading}
         alt="Loading..."
       />
     </div>

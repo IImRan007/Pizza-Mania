@@ -27,7 +27,9 @@ function ImageSlider() {
 
   return (
     <div>
-      <p className="exploreHeading text-[2rem] mb-4 p-4">Recommended</p>
+      <p className="exploreHeading text-[2rem] mb-4 p-4 text-black">
+        RECOMMENDED PIZZA's 😍
+      </p>
       <Swiper
         slidesPerView={1}
         pagination={{ clickable: true }}

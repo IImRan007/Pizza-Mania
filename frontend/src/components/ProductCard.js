@@ -1,25 +1,44 @@
 import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
+import { useState } from "react";
 
 const ProductCard = ({ products }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   if (!products) {
     return <Spinner />;
   }
 
+  const filteredProducts = products.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="p-4 mb-12">
       <div>
-        <p className="font-bold text-[2rem]">Products</p>
+        <p className="font-bold text-black text-[2rem]">OUR PIZZA's</p>
       </div>
-      <div className="flex flex-wrap gap-8">
+      <div className="mt-4 mb-4 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search here"
+          className="input input-bordered input-info w-full max-w-2xl"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-wrap gap-8 justify-center">
         {products &&
-          products.map((item) => (
+          filteredProducts.map((item) => (
             <div
-              className="card w-96 bg-base-100 shadow-xl mt-8"
+              className="card imgCard cursor-pointer w-96 bg-base-100 hover:shadow-xl mt-8"
               key={item._id}
             >
               <figure>
-                <img src={item.imgFile.secure_url} alt="product" />
+                <img
+                  className="max-w-36 img max-h-52"
+                  src={item.imgFile.secure_url}
+                  alt="product"
+                />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">

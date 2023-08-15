@@ -85,3 +85,10 @@ body {
     font-size: 1.25rem;
   }
 }
+
+.imgCard:hover {
+  .img {
+    transition: 0.35s all ease-out;
+    transform: scale(1.5);
+  }
+}
